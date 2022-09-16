@@ -7,6 +7,7 @@
 
 import Foundation
 
+typealias Categories = [Category]
 struct Category: Codable {
     
     let domain_id: String
