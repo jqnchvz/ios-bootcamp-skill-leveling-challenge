@@ -42,6 +42,17 @@ struct MultigetQueryItemDetails: Codable {
     let condition: String
     let pictures: [Picture]
     
+    var translatedCondition: String {
+        switch condition {
+        case "new":
+            return "Nuevo"
+        case "used":
+            return "Usado"
+        default:
+            return "N/A"
+        }
+    }
+    
     var formattedPrice: String {
         let formatter = NumberFormatter()
         formatter.locale = Locale.current

@@ -12,6 +12,9 @@
 		C57C33BE28D0FD750093A586 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57C33BD28D0FD750093A586 /* Networking.swift */; };
 		C57C33C028D224920093A586 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57C33BF28D224920093A586 /* ApiCaller.swift */; };
 		C57C33C228D2829C0093A586 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57C33C128D2829C0093A586 /* CustomTableViewCell.swift */; };
+		C5871C0028D8F95F00254631 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5871BFF28D8F95F00254631 /* FavoritesManager.swift */; };
+		C5871C0228D8FCFA00254631 /* DetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5871C0128D8FCFA00254631 /* DetailsHeaderView.swift */; };
+		C5871C0428D91D6000254631 /* DetailsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5871C0328D91D6000254631 /* DetailsButtonsView.swift */; };
 		C5FD8DEB28CF9FE100190B1B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD8DEA28CF9FE100190B1B /* AppDelegate.swift */; };
 		C5FD8DED28CF9FE100190B1B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD8DEC28CF9FE100190B1B /* SceneDelegate.swift */; };
 		C5FD8DEF28CF9FE100190B1B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FD8DEE28CF9FE100190B1B /* ViewController.swift */; };
@@ -30,6 +33,9 @@
 		C57C33BD28D0FD750093A586 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		C57C33BF28D224920093A586 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
 		C57C33C128D2829C0093A586 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		C5871BFF28D8F95F00254631 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		C5871C0128D8FCFA00254631 /* DetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsHeaderView.swift; sourceTree = "<group>"; };
+		C5871C0328D91D6000254631 /* DetailsButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsButtonsView.swift; sourceTree = "<group>"; };
 		C5FD8DE728CF9FE100190B1B /* Skill-Leveling Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skill-Leveling Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5FD8DEA28CF9FE100190B1B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5FD8DEC28CF9FE100190B1B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,8 +84,19 @@
 			isa = PBXGroup;
 			children = (
 				C57C33C128D2829C0093A586 /* CustomTableViewCell.swift */,
+				C5871C0128D8FCFA00254631 /* DetailsHeaderView.swift */,
+				C5871C0328D91D6000254631 /* DetailsButtonsView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C5871BFE28D8F94900254631 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C57C33BF28D224920093A586 /* ApiCaller.swift */,
+				C5871BFF28D8F95F00254631 /* FavoritesManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C5FD8DDE28CF9FE100190B1B = {
@@ -103,6 +120,7 @@
 		C5FD8DE928CF9FE100190B1B /* Skill-Leveling Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				C5871BFE28D8F94900254631 /* Managers */,
 				C552CA5C28D3C1AD00E3CF7F /* Views */,
 				C552CA5B28D3C19700E3CF7F /* Controllers */,
 				C5FD8E0028CFB71300190B1B /* Model */,
@@ -113,7 +131,6 @@
 				C5FD8DF528CF9FE200190B1B /* LaunchScreen.storyboard */,
 				C5FD8DF828CF9FE200190B1B /* Info.plist */,
 				C57C33BD28D0FD750093A586 /* Networking.swift */,
-				C57C33BF28D224920093A586 /* ApiCaller.swift */,
 			);
 			path = "Skill-Leveling Challenge";
 			sourceTree = "<group>";
@@ -253,9 +270,12 @@
 			files = (
 				C552CA5E28D3C2BB00E3CF7F /* ItemDetailViewController.swift in Sources */,
 				C57C33C228D2829C0093A586 /* CustomTableViewCell.swift in Sources */,
+				C5871C0228D8FCFA00254631 /* DetailsHeaderView.swift in Sources */,
 				C5FD8E0228CFB72700190B1B /* Query.swift in Sources */,
 				C5FD8DEF28CF9FE100190B1B /* ViewController.swift in Sources */,
 				C5FD8DEB28CF9FE100190B1B /* AppDelegate.swift in Sources */,
+				C5871C0028D8F95F00254631 /* FavoritesManager.swift in Sources */,
+				C5871C0428D91D6000254631 /* DetailsButtonsView.swift in Sources */,
 				C5FD8DED28CF9FE100190B1B /* SceneDelegate.swift in Sources */,
 				C5FD8DFF28CFB44F00190B1B /* Category.swift in Sources */,
 				C5FD8E0428CFCB9500190B1B /* HomeViewController.swift in Sources */,

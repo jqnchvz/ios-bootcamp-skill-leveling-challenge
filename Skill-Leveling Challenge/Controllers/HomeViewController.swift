@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
     private func setupView() {
         self.view.backgroundColor = .white
         navigationItem.titleView = searchBar
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .plain, target: self, action: nil)
         
         self.view.addSubview(itemsTableView)
     }
@@ -88,7 +88,7 @@ extension HomeViewController: UITableViewDataSource {
         let item = itemsList[indexPath.row].body
         cell.setTitle(item.title)
         cell.setPrice(item.formattedPrice)
-        cell.setSubtitle(item.condition.capitalized)
+        cell.setSubtitle(item.translatedCondition)
         cell.setLocation(item.seller_address.formattedLocation)
         cell.setImageThumbnail(item.secure_thumbnail)
         return cell
