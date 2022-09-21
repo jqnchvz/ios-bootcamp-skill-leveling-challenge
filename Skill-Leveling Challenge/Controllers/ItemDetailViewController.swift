@@ -41,6 +41,7 @@ class ItemDetailViewController: UIViewController {
     
     private lazy var detailsButtonsView: DetailsButtonsView = {
         let buttonsView = DetailsButtonsView()
+        buttonsView.itemId = item?.body.id
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         return buttonsView
     }()
@@ -64,25 +65,27 @@ class ItemDetailViewController: UIViewController {
         return textView
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        detailsButtonsView.itemId = item?.body.id
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: nil)
-        
-        print("Loading view...")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .plain, target: self, action: nil)
         
         if let item = item {
-            ApiCaller.shared.fetchDescription(item.body.id) { result in
-                print("Fetching description...")
+            ApiCallManager.shared.fetchDescription(item.body.id) { result in
                 switch result {
                 case .success(let description):
                     DispatchQueue.main.async {
                         self.descriptionTextLabel.text = description.plain_text
-                        print("Description updated")
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    let errorMessage = "Error fetching description for item: \(error.description)"
+                    self.showErrorAlert(message: errorMessage)
                 }
             }
             
@@ -95,7 +98,6 @@ class ItemDetailViewController: UIViewController {
     }
     
     private func setupViews() {
-        print("Setting up views...")
         self.contentView.addSubview(detailsHeaderView)
         self.contentView.addSubview(detailsButtonsView)
         self.contentView.addSubview(descriptionTitleLabel)
@@ -106,7 +108,6 @@ class ItemDetailViewController: UIViewController {
     }
     
     private func setupConstraints() {
-        print("Setting up constraints...")
         let safeArea = self.view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -139,4 +140,14 @@ class ItemDetailViewController: UIViewController {
         ])
     }
 
+}
+
+extension ItemDetailViewController {
+    private func showErrorAlert(message: String) {
+        DispatchQueue.main.async {
+            let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            self.present(errorAlert, animated: true, completion: nil)
+        }
+    }
 }

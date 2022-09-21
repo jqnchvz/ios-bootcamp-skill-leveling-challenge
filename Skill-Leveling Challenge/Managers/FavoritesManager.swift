@@ -9,9 +9,9 @@ import Foundation
 
 class FavoritesManager {
     
-    var favoritesIds: [String] = []
+    private(set) var favoritesIds: [String] = []
     
-    let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
     
     static let shared = FavoritesManager()
     
@@ -25,10 +25,21 @@ class FavoritesManager {
         }
     }
     
-    func saveFavorites(_ favoritesArray: [String]) {
+    func saveFavorites() {
         print("Saving favorites...")
-        userDefaults.set(favoritesArray, forKey: "FavoriteItems")
+        userDefaults.set(favoritesIds, forKey: "FavoriteItems")
         print("Favorites list saved!")
         loadFavorites()
+    }
+    
+    func addItemToFavorites(_ itemId: String) {
+        self.favoritesIds.append(itemId)
+        saveFavorites()
+    }
+    
+    func removeItemFromFavorites(_ itemId: String) {
+        guard let itemIdIndex = favoritesIds.firstIndex(of: itemId) else { return }
+        self.favoritesIds.remove(at: itemIdIndex)
+        saveFavorites()
     }
 }

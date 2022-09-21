@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreImage
 
 struct HighlightQuery: Codable {
     let query_data: QueryData

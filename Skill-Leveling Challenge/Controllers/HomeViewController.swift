@@ -34,6 +34,7 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
 
@@ -98,22 +99,50 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print("Buscando \(searchBar.searchTextField.text)")
-        guard let searchTerm = searchBar.searchTextField.text else { return }
-        ApiCaller.shared.fetchItemsDetails(searchTerm) { result in
+        searchBar.resignFirstResponder()
+        
+        guard let searchTerm = searchBar.searchTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
+        ApiCallManager.shared.fetchCategory(searchTerm) { result in
             switch result {
-            case .success(let multigetQuery):
-                self.itemsList = multigetQuery
-                DispatchQueue.main.async {
-                    self.itemsTableView.reloadData()
+            case .success(let categories):
+                ApiCallManager.shared.fetchTopItemsIds(categories[0]) { result in
+                    switch result {
+                    case .success(let highlightQuery):
+                        ApiCallManager.shared.fetchItemsDetailsFor(highlightQuery) { result in
+                            switch result {
+                            case .success(let multigetQuery):
+                                self.itemsList = multigetQuery
+                                DispatchQueue.main.async {
+                                    self.itemsTableView.reloadData()
+                                }
+                            case .failure(let error):
+                                let errorMessage = "Error fetching item details: \(error.description)"
+                                self.showErrorAlert(message: errorMessage)
+                                return
+                            }
+                        }
+                    case .failure(let error):
+                        let errorMessage = "Error fetching item IDs from category: \(error.description)"
+                        self.showErrorAlert(message: errorMessage)
+                        return
+                    }
                 }
                 
-            case.failure(let error):
-                self.itemsList.removeAll()
-                DispatchQueue.main.async {
-                    self.itemsTableView.reloadData()
-                }
-                print(error.localizedDescription)
+            case .failure(let error):
+                let errorMessage = "Error fetching category prediction from search term: \(error.description)"
+                self.showErrorAlert(message: errorMessage)
+                return
             }
+        }
+    }
+}
+
+extension HomeViewController {
+    private func showErrorAlert(message: String) {
+        DispatchQueue.main.async {
+            let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
+            self.present(errorAlert, animated: true, completion: nil)
         }
     }
 }

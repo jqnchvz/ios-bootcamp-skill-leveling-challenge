@@ -68,7 +68,7 @@ class DetailsHeaderView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = sellerAddress
-        label.textColor = .black
+        label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()

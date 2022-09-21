@@ -14,27 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let homeViewController = HomeViewController()
-        let navigationController = UINavigationController(rootViewController: homeViewController)
         let window = UIWindow(windowScene: windowScene)
-        
-        let navBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = UIColor(named: "MeliYellow")
-            
-            let appearance = UINavigationBar.appearance()
-            appearance.standardAppearance = navBarAppearance
-            appearance.compactAppearance = navBarAppearance
-            appearance.scrollEdgeAppearance = navBarAppearance
-            if #available(iOS 15.0, *) {
-              appearance.compactScrollEdgeAppearance = navBarAppearance
-            } else {
-              // Fallback on earlier versions
-            }
-        
-        window.rootViewController = navigationController
+        window.rootViewController = MainTabBarController()
         window.makeKeyAndVisible()
         self.window = window
+        
+        FavoritesManager.shared.loadFavorites()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -63,6 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        FavoritesManager.shared.saveFavorites()
     }
 
 
