@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: Favorites Manager
+
 class FavoritesManager {
     
     private(set) var favoritesIds: [String] = []
@@ -17,6 +19,7 @@ class FavoritesManager {
     
     private init() {}
     
+    // Load favorites list from UserDefaults
     func loadFavorites() {
         if let loadedFavorites = userDefaults.stringArray(forKey: "FavoriteItems") {
             print("Loading favorites...")
@@ -25,6 +28,7 @@ class FavoritesManager {
         }
     }
     
+    // Save favorites list to UserDefaults
     func saveFavorites() {
         print("Saving favorites...")
         userDefaults.set(favoritesIds, forKey: "FavoriteItems")
@@ -32,11 +36,13 @@ class FavoritesManager {
         loadFavorites()
     }
     
+    // Add item ID to favorites list
     func addItemToFavorites(_ itemId: String) {
         self.favoritesIds.append(itemId)
         saveFavorites()
     }
     
+    // Add remove ID to favorites list
     func removeItemFromFavorites(_ itemId: String) {
         guard let itemIdIndex = favoritesIds.firstIndex(of: itemId) else { return }
         self.favoritesIds.remove(at: itemIdIndex)

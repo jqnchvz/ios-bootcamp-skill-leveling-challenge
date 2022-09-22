@@ -8,10 +8,14 @@
 import UIKit
 import SDWebImage
 
+// MARK: ItemDetailViewController
+
+// Item Details Screen
 class ItemDetailViewController: UIViewController {
-    
+    // Selected item
     var item: MultigetQueryItem?
     
+    // Main ScrollView
     private lazy var detailsScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,12 +23,14 @@ class ItemDetailViewController: UIViewController {
         return scrollView
     }()
     
+    // Content view to manage layout inside ScrollView
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+    // Header view with main info about item
     private lazy var detailsHeaderView: DetailsHeaderView = {
         
         let headerView = DetailsHeaderView(
@@ -39,6 +45,7 @@ class ItemDetailViewController: UIViewController {
         return headerView
     }()
     
+    // Buttons view
     private lazy var detailsButtonsView: DetailsButtonsView = {
         let buttonsView = DetailsButtonsView()
         buttonsView.itemId = item?.body.id
@@ -46,6 +53,7 @@ class ItemDetailViewController: UIViewController {
         return buttonsView
     }()
     
+    // Long text description view
     private lazy var descriptionTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Descripción"
@@ -65,6 +73,7 @@ class ItemDetailViewController: UIViewController {
         return textView
     }()
     
+    // Update buttons state when view will appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         detailsButtonsView.itemId = item?.body.id
@@ -76,6 +85,7 @@ class ItemDetailViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .plain, target: self, action: nil)
         
+        // Fetch description text for selected item
         if let item = item {
             ApiCallManager.shared.fetchDescription(item.body.id) { result in
                 switch result {
@@ -97,6 +107,7 @@ class ItemDetailViewController: UIViewController {
         
     }
     
+    // Add subviews
     private func setupViews() {
         self.contentView.addSubview(detailsHeaderView)
         self.contentView.addSubview(detailsButtonsView)
@@ -107,6 +118,7 @@ class ItemDetailViewController: UIViewController {
         
     }
     
+    // Set up layout constraints
     private func setupConstraints() {
         let safeArea = self.view.safeAreaLayoutGuide
         

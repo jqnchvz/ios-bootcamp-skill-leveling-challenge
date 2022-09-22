@@ -7,10 +7,14 @@
 
 import UIKit
 
+// MARK: Main View Controller
+
+// Main App Screen, First TabBar Item.
 class HomeViewController: UIViewController {
-    
+    // Variable that stores items list obtained from the API call
     private var itemsList: MultigetQuery = []
     
+    // Search bar
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "Buscar en Mercado Libre"
@@ -27,7 +31,8 @@ class HomeViewController: UIViewController {
 
         return searchBar
     }()
-
+    
+    // Search results TableView
     private lazy var itemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -44,6 +49,7 @@ class HomeViewController: UIViewController {
         setupConstraints()
     }
     
+    // Add subviews to main view
     private func setupView() {
         self.view.backgroundColor = .white
         navigationItem.titleView = searchBar
@@ -52,6 +58,7 @@ class HomeViewController: UIViewController {
         self.view.addSubview(itemsTableView)
     }
     
+    // Set up layout constraints
     private func setupConstraints() {
         let safeArea = self.view.safeAreaLayoutGuide
         
@@ -65,6 +72,8 @@ class HomeViewController: UIViewController {
     }
 }
 
+
+// MARK: TableView Delegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = ItemDetailViewController()
@@ -74,6 +83,7 @@ extension HomeViewController: UITableViewDelegate {
     
 }
 
+// MARK: TableView DataSource
 extension HomeViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -86,22 +96,30 @@ extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
+        
         let item = itemsList[indexPath.row].body
+        
+        // Set custom TableViewCell labels and thumbnail
         cell.setTitle(item.title)
         cell.setPrice(item.formattedPrice)
         cell.setSubtitle(item.translatedCondition)
         cell.setLocation(item.seller_address.formattedLocation)
         cell.setImageThumbnail(item.secure_thumbnail)
+        
         return cell
     }
 }
 
+// MARK: Searchbar Delegate
 extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("Buscando \(searchBar.searchTextField.text)")
+        // Hide keyboard when search button pressed
         searchBar.resignFirstResponder()
         
+        // Trim whitespaces from search text before API call
         guard let searchTerm = searchBar.searchTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
+        
+        // Cascading API calls to get items list and details
         ApiCallManager.shared.fetchCategory(searchTerm) { result in
             switch result {
             case .success(let categories):
@@ -127,7 +145,6 @@ extension HomeViewController: UISearchBarDelegate {
                         return
                     }
                 }
-                
             case .failure(let error):
                 let errorMessage = "Error fetching category prediction from search term: \(error.description)"
                 ErrorsManager.shared.showErrorAlert(message: errorMessage, vc: self)

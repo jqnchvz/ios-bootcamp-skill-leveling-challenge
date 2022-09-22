@@ -6,11 +6,14 @@
 //
 
 import UIKit
+// MARK: FavoritesViewContoller
 
+// Favorites Screen, Second TabBar Item
 class FavoritesViewController: UIViewController {
-    
+    // Variable that stores items list obtained from the API call
     private var favoriteItemsList: MultigetQuery = []
-
+    
+    // Favorites list TableView
     private lazy var itemsTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -23,6 +26,7 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         let favoriteIds = FavoritesManager.shared.favoritesIds
         
+        // Check if favorites list is empty to clear TableView before doing API call.
         guard !favoriteIds.isEmpty else {
             favoriteItemsList.removeAll()
             DispatchQueue.main.async {
@@ -31,6 +35,7 @@ class FavoritesViewController: UIViewController {
             return
         }
         
+        // Fetch details for favorite items
         ApiCallManager.shared.fetchItemsDetailsFor(favoriteIds) { result in
             switch result {
             case .success(let multigetQuery):
@@ -59,6 +64,7 @@ class FavoritesViewController: UIViewController {
         setupConstraints()
     }
     
+    // Add subviews
     private func setupView() {
         self.view.backgroundColor = .white
         navigationItem.title = "Favoritos"
@@ -66,6 +72,7 @@ class FavoritesViewController: UIViewController {
         self.view.addSubview(itemsTableView)
     }
     
+    // Set up layout constraints
     private func setupConstraints() {
         let safeArea = self.view.safeAreaLayoutGuide
         
@@ -79,6 +86,7 @@ class FavoritesViewController: UIViewController {
     }
 }
 
+// MARK: TableView Delegate
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = ItemDetailViewController()
@@ -88,6 +96,7 @@ extension FavoritesViewController: UITableViewDelegate {
     
 }
 
+// MARK: TableView DataSource
 extension FavoritesViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
