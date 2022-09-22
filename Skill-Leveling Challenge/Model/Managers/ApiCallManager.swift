@@ -55,6 +55,7 @@ class ApiCallManager {
             
             // Check internet connection error
             if let urlError = error as? URLError, urlError.code  == URLError.Code.notConnectedToInternet {
+                print("Error: No internet connection")
                 completion(.failure(ApiCallError.noInternetConnection))
                 return
             }
