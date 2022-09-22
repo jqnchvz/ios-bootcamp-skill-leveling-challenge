@@ -117,32 +117,22 @@ extension HomeViewController: UISearchBarDelegate {
                                 }
                             case .failure(let error):
                                 let errorMessage = "Error fetching item details: \(error.description)"
-                                self.showErrorAlert(message: errorMessage)
+                                ErrorsManager.shared.showErrorAlert(message: errorMessage, vc: self)
                                 return
                             }
                         }
                     case .failure(let error):
                         let errorMessage = "Error fetching item IDs from category: \(error.description)"
-                        self.showErrorAlert(message: errorMessage)
+                        ErrorsManager.shared.showErrorAlert(message: errorMessage, vc: self)
                         return
                     }
                 }
                 
             case .failure(let error):
                 let errorMessage = "Error fetching category prediction from search term: \(error.description)"
-                self.showErrorAlert(message: errorMessage)
+                ErrorsManager.shared.showErrorAlert(message: errorMessage, vc: self)
                 return
             }
-        }
-    }
-}
-
-extension HomeViewController {
-    private func showErrorAlert(message: String) {
-        DispatchQueue.main.async {
-            let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            self.present(errorAlert, animated: true, completion: nil)
         }
     }
 }

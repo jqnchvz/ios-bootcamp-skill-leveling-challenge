@@ -85,7 +85,7 @@ class ItemDetailViewController: UIViewController {
                     }
                 case .failure(let error):
                     let errorMessage = "Error fetching description for item: \(error.description)"
-                    self.showErrorAlert(message: errorMessage)
+                    ErrorsManager.shared.showErrorAlert(message: errorMessage, vc: self)
                 }
             }
             
@@ -140,14 +140,4 @@ class ItemDetailViewController: UIViewController {
         ])
     }
 
-}
-
-extension ItemDetailViewController {
-    private func showErrorAlert(message: String) {
-        DispatchQueue.main.async {
-            let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            self.present(errorAlert, animated: true, completion: nil)
-        }
-    }
 }

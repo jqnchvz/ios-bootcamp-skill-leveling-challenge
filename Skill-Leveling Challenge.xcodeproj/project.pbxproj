@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		52E4869BA2931C1E3AC9EA7D /* Pods_Skill_Leveling_Challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874FFE587AB0FB5586D82C5B /* Pods_Skill_Leveling_Challenge.framework */; };
+		C512EFC628DC8DAA0052FC6E /* ErrorsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C512EFC528DC8DAA0052FC6E /* ErrorsManager.swift */; };
 		C552CA5E28D3C2BB00E3CF7F /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C552CA5D28D3C2BB00E3CF7F /* ItemDetailViewController.swift */; };
 		C57C33C228D2829C0093A586 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C57C33C128D2829C0093A586 /* CustomTableViewCell.swift */; };
 		C5871C0028D8F95F00254631 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5871BFF28D8F95F00254631 /* FavoritesManager.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		507CAD61504579C2C410B2D4 /* Pods-Skill-Leveling Challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skill-Leveling Challenge.release.xcconfig"; path = "Target Support Files/Pods-Skill-Leveling Challenge/Pods-Skill-Leveling Challenge.release.xcconfig"; sourceTree = "<group>"; };
 		874FFE587AB0FB5586D82C5B /* Pods_Skill_Leveling_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Skill_Leveling_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C512EFC528DC8DAA0052FC6E /* ErrorsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsManager.swift; sourceTree = "<group>"; };
 		C552CA5D28D3C2BB00E3CF7F /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		C57C33C128D2829C0093A586 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		C5871BFF28D8F95F00254631 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			children = (
 				C5871BFF28D8F95F00254631 /* FavoritesManager.swift */,
 				C5871C0528DA49DB00254631 /* ApiCallManager.swift */,
+				C512EFC528DC8DAA0052FC6E /* ErrorsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -121,7 +124,6 @@
 		C5FD8DE928CF9FE100190B1B /* Skill-Leveling Challenge */ = {
 			isa = PBXGroup;
 			children = (
-				C5871BFE28D8F94900254631 /* Managers */,
 				C552CA5C28D3C1AD00E3CF7F /* Views */,
 				C552CA5B28D3C19700E3CF7F /* Controllers */,
 				C5FD8E0028CFB71300190B1B /* Model */,
@@ -138,6 +140,7 @@
 		C5FD8E0028CFB71300190B1B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C5871BFE28D8F94900254631 /* Managers */,
 				C5FD8DFE28CFB44F00190B1B /* Category.swift */,
 				C5FD8E0128CFB72700190B1B /* Query.swift */,
 			);
@@ -278,6 +281,7 @@
 				C5871C0028D8F95F00254631 /* FavoritesManager.swift in Sources */,
 				C5871C0428D91D6000254631 /* DetailsButtonsView.swift in Sources */,
 				C5871C0628DA49DC00254631 /* ApiCallManager.swift in Sources */,
+				C512EFC628DC8DAA0052FC6E /* ErrorsManager.swift in Sources */,
 				C5FD8DED28CF9FE100190B1B /* SceneDelegate.swift in Sources */,
 				C5FD8DFF28CFB44F00190B1B /* Category.swift in Sources */,
 				C5FD8E0428CFCB9500190B1B /* HomeViewController.swift in Sources */,

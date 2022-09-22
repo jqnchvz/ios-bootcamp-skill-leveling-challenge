@@ -44,7 +44,7 @@ class FavoritesViewController: UIViewController {
             case .failure(let error):
                 print("Error fetching favorites list details: ", error.localizedDescription)
                 let errorMessage = "Error fetching favorites list details: \(error.localizedDescription)"
-                self.showErrorAlert(message: errorMessage)
+                ErrorsManager.shared.showErrorAlert(message: errorMessage, vc: self)
                 return
             }
         }
@@ -107,16 +107,6 @@ extension FavoritesViewController: UITableViewDataSource {
         cell.setLocation(item.seller_address.formattedLocation)
         cell.setImageThumbnail(item.secure_thumbnail)
         return cell
-    }
-}
-
-extension FavoritesViewController {
-    private func showErrorAlert(message: String) {
-        DispatchQueue.main.async {
-            let errorAlert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
-            self.present(errorAlert, animated: true, completion: nil)
-        }
     }
 }
 
